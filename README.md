@@ -1,6 +1,9 @@
 # microservice-boilerplate
 Clojure Microservice Boilerplate: http-kit, java-http-clj, ruuter, interceptor, schema, postgresql and tests. Made to be compiled in GraalVM 
 
+## Performance Comparison
+Check [PERFORMANCE.md](PERFORMANCE.md), for a small comparison between running this example with `java` or the `native-image`.
+
 ## About this example
 This source is a combination of two namespaces
 
