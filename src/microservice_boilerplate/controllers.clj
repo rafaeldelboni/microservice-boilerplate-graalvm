@@ -6,6 +6,8 @@
             [microservice-boilerplate.schemas.types :as schemas.types]
             [schema.core :as s]))
 
+(set! *warn-on-reflection* true)
+
 (defn- instant-now [] (java.util.Date/from (java.time.Instant/now)))
 
 (s/defschema WalletHistory

@@ -6,6 +6,8 @@
             [parenthesin.components.database :as components.database]
             [schema.core :as s]))
 
+(set! *warn-on-reflection* true)
+
 (s/defn insert-wallet-transaction
   [transaction :- schemas.db/WalletTransaction
    db :- schemas.types/DatabaseComponent]

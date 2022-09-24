@@ -4,11 +4,12 @@
             [parenthesin.components.config :as config]
             [parenthesin.components.database :as database]
             [parenthesin.components.http :as http]
-            [parenthesin.components.router :as router]
             [parenthesin.components.webserver :as webserver]
             [parenthesin.logs :as logs]
             [parenthesin.migrations :as migrations])
   (:gen-class))
+
+(set! *warn-on-reflection* true)
 
 (def system-atom (atom nil))
 
@@ -16,9 +17,9 @@
   (component/system-map
    :config (config/new-config)
    :http (http/new-http)
-   :router (router/new-router routes/routes)
    :database (component/using (database/new-database) [:config])
-   :webserver (component/using (webserver/new-webserver) [:config :http :router :database])))
+   :webserver (component/using (webserver/new-webserver routes/routes)
+                               [:config :http :database])))
 
 (defn start-system! [system-map]
   (logs/setup [["*" :info]] :auto)

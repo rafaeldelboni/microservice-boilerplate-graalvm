@@ -2,6 +2,8 @@
   (:require [taoensso.timbre :as timbre]
             [taoensso.timbre.appenders.core :as core-appenders]))
 
+(set! *warn-on-reflection* true)
+
 (defn setup [level stream]
   (timbre/set-level! level)
   (timbre/merge-config!

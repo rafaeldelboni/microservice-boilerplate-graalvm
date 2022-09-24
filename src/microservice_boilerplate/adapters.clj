@@ -7,6 +7,8 @@
   (:import [java.time LocalDateTime ZoneId]
            [java.time.format DateTimeFormatter]))
 
+(set! *warn-on-reflection* true)
+
 (s/defn ^:private date->localdatetime :- LocalDateTime
   [value :- s/Inst
    zone-id :- ZoneId]

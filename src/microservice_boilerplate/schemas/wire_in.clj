@@ -1,6 +1,8 @@
 (ns microservice-boilerplate.schemas.wire-in
   (:require [schema.core :as s]))
 
+(set! *warn-on-reflection* true)
+
 (s/defschema WalletDeposit
   {:btc s/Num})
 

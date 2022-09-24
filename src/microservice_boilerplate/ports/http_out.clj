@@ -5,10 +5,11 @@
             [parenthesin.components.http :as components.http]
             [schema.core :as s]))
 
+(set! *warn-on-reflection* true)
+
 (s/defn get-btc-usd-price :- s/Num
   [http :- schemas.types/HttpComponent]
   (-> {:url "https://api.coindesk.com/v1/bpi/currentprice.json"
-       :as :json
        :method :get}
       (as-> request (components.http/request http request))
       :body
