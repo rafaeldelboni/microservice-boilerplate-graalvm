@@ -4,6 +4,8 @@
             [parenthesin.interceptors :as interceptors]
             [schema.core :as s]))
 
+(set! *warn-on-reflection* true)
+
 (def routes-definition
   [{:path "/wallet/history"
     :method :get

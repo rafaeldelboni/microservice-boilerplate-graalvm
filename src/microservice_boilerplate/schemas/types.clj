@@ -5,6 +5,8 @@
             [parenthesin.components.http :as components.http]
             [schema.core :as s]))
 
+(set! *warn-on-reflection* true)
+
 (def PositiveNumber
   (s/constrained s/Num pos? 'PositiveNumber))
 

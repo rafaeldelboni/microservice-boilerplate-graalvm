@@ -3,6 +3,8 @@
             [clojure.java.io :as io]
             [com.stuartsierra.component :as component]))
 
+(set! *warn-on-reflection* true)
+
 (def ^:private current-profile (keyword (or (System/getenv "SYSTEM_ENV") "dev")))
 
 (defn- config [profile]

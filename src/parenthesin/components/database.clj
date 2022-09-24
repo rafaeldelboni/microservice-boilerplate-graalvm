@@ -5,6 +5,8 @@
             [parenthesin.logs :as logs])
   (:import (com.zaxxer.hikari HikariDataSource)))
 
+(set! *warn-on-reflection* true)
+
 (defprotocol DatabaseProvider
   (execute [self command]
     "Low-level API to execute a command in the database"))

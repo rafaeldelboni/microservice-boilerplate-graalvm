@@ -1,6 +1,8 @@
 (ns microservice-boilerplate.schemas.db
   (:require [schema.core :as s]))
 
+(set! *warn-on-reflection* true)
+
 (def wallet {:wallet/id s/Uuid
              :wallet/btc_amount s/Num
              :wallet/usd_amount_at s/Num

@@ -2,6 +2,8 @@
   (:require [microservice-boilerplate.adapters :as adapters]
             [microservice-boilerplate.controllers :as controllers]))
 
+(set! *warn-on-reflection* true)
+
 (defn get-history
   [{components :components}]
   (let [{:keys [entries usd-price]} (controllers/get-wallet components)]

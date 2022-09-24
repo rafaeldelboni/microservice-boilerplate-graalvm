@@ -5,6 +5,8 @@
             [schema.core :as s])
   (:import [java.util UUID]))
 
+(set! *warn-on-reflection* true)
+
 (s/defn uuid-from-string :- s/Uuid
   [seed :- s/Str]
   (-> seed

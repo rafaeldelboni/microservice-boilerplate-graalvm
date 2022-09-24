@@ -4,6 +4,8 @@
             [parenthesin.components.config :as components.config])
   (:gen-class))
 
+(set! *warn-on-reflection* true)
+
 (defn get-connection []
   (let [{:keys [username] :as db} (-> (components.config/read-config {}) :database)]
     (jdbc/get-connection (assoc db :user username))))

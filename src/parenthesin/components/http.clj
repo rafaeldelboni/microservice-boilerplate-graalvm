@@ -4,6 +4,8 @@
             [parenthesin.logs :as logs]
             [schema.core :as s]))
 
+(set! *warn-on-reflection* true)
+
 (s/defschema HttpRequestInput
   {:url s/Str
    :method (apply s/enum #{:get :head :post :put :delete :options :copy :move :patch})

@@ -3,6 +3,8 @@
             [parenthesin.logs :as logs]
             [ruuter.core :as ruuter]))
 
+(set! *warn-on-reflection* true)
+
 (defn ^:private process-route-response
   [{:keys [handler handler-error interceptors parameters responses]}]
   (fn [req]
@@ -35,7 +37,6 @@
 (defn ^:private routes->ruuter [routes]
   (map #(assoc % :response (process-route-response %)) routes))
 
-;; TODO unit test
 (defn routes->handler
   ([routes]
    (routes->handler routes {}))

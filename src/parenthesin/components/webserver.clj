@@ -4,6 +4,8 @@
             [parenthesin.interoute :refer [routes->handler]]
             [parenthesin.logs :as logs]))
 
+(set! *warn-on-reflection* true)
+
 (defrecord WebServer [config routes interceptors]
   component/Lifecycle
   (start [this]

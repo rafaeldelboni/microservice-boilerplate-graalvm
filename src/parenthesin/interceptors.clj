@@ -9,18 +9,21 @@
             [schema.coerce :as coerce]
             [schema.core :as s]))
 
+(set! *warn-on-reflection* true)
+
 (defn ^:private get-content-type [ctx]
   (or (get (:headers ctx) "content-type")
       (get (:headers ctx) "Content-Type")
       ""))
 
-;; TODO unit tests
 (def parse-body
   {:name :parse-request-body
    :enter
    (-> (fn [ctx] (assoc ctx
                         :body (-> ctx :body slurp (json/decode true))))
-       (ix/when #(and (= (-> % :body type) java.io.ByteArrayInputStream)
+       (ix/when #(and (when-let [body-type (-> % :body type)]
+                        (or (= body-type java.io.ByteArrayInputStream)
+                            (= body-type org.httpkit.BytesInputStream)))
                       (string/includes? (get-content-type %) "application/json"))))
    :leave
    (-> (fn [ctx] (-> ctx
@@ -35,7 +38,6 @@
             (logs/log :error :parse-request-body err ctx)
             {:status 500 :body (str err)})})
 
-;; TODO unit tests
 (def parse-query
   {:name :parse-request-query
    :enter (-> (fn [ctx] (assoc ctx
@@ -55,7 +57,6 @@
     (s/validate schema coerced)
     coerced))
 
-;; TODO unit tests
 (def coerce-schema
   {:name :coerce-request-schema
    :enter (fn [{:keys [params body query parameters] :as ctx}]

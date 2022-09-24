@@ -9,6 +9,8 @@
             [parenthesin.migrations :as migrations])
   (:gen-class))
 
+(set! *warn-on-reflection* true)
+
 (def system-atom (atom nil))
 
 (defn- build-system-map []
