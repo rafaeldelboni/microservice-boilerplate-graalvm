@@ -15,6 +15,13 @@ GET  | /wallet/history    | get all wallet entries and current total
 POST | /wallet/deposit    | do a deposit in btc in the wallet
 POST | /wallet/withdrawal | do a withdrawal in btc in the wallet if possible
 
+## Curl
+```bash
+curl -X GET localhost:3001/wallet/history -H "Content-Type: application/json"
+curl -X POST localhost:3001/wallet/deposit -d "{\"btc\": 1}" -H "Content-Type: application/json"
+curl -X POST localhost:3001/wallet/withdrawal -d "{\"btc\": -1}" -H "Content-Type: application/json"
+```
+
 ## Repl
 To open a nrepl
 ```bash
@@ -90,10 +97,19 @@ You can start a repl open and evaluate the file `src/microservice_boilerplate/se
 ### Uberjar
 You can generate an uberjar and execute it via java in the terminal:
 ```bash
-# genarate a service.jar in the root of this repository.
+# generate a service.jar in the root of this repository.
 clj -X:uberjar
 # execute it via java
 java -jar target/service.jar
+```
+
+### Native Binary (GraalVM)
+Configurations related to the compilation is in the folder `resources/META-INF/native-image/`
+```bash
+# generate a service.jar and later the native binary
+./build-native.sh
+# execute it
+./target/service
 ```
 
 ## Features
