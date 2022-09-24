@@ -1,7 +1,7 @@
 # Performance Comparison
-You can download the test file I used here [assertion.jmx](docs/assertion.jmx).
+You can download the test file I used here [assertion.jmx](docs/assertion.jmx)
 
-This was the jmeter settings:
+This was the jmeter settings:  
 ![settings-1](docs/assertion-settings-1.jpg)
 ![settings-2](docs/assertion-settings-2.jpg)
 
