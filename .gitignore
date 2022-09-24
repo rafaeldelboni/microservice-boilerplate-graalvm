@@ -24,6 +24,6 @@
 /dist
 /example*db
 /lib
-/target
+/reports
 /target
 pom.xml.asc
