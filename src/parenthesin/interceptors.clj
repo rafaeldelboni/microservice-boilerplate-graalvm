@@ -1,8 +1,8 @@
 (ns parenthesin.interceptors
-  (:require [cheshire.core :as json]
-            [clojure.string :as string]
+  (:require [clojure.string :as string]
             [clojure.walk :as walk]
             [exoscale.interceptor :as ix]
+            [jsonista.core :as json]
             [parenthesin.logs :as logs]
             [ring.util.codec :as codec]
             [schema-tools.coerce :as stc]
@@ -16,19 +16,21 @@
       (get (:headers ctx) "Content-Type")
       ""))
 
+(def json-mapper
+  (json/object-mapper
+   {:encode-key-fn name
+    :decode-key-fn keyword}))
+
 (def parse-body
   {:name :parse-request-body
    :enter
    (-> (fn [ctx] (assoc ctx
-                        :body (-> ctx :body slurp (json/decode true))))
-       (ix/when #(and (when-let [body-type (-> % :body type)]
-                        (or (= body-type java.io.ByteArrayInputStream)
-                            (= body-type org.httpkit.BytesInputStream)))
-                      (string/includes? (get-content-type %) "application/json"))))
+                        :body (-> ctx :body (json/read-value json-mapper))))
+       (ix/when #(string/includes? (get-content-type %) "application/json")))
    :leave
    (-> (fn [ctx] (-> ctx
                      (assoc :headers {"content-type" "application/json"})
-                     (assoc :body (-> ctx :body (json/encode true)))))
+                     (assoc :body (-> ctx :body (json/write-value-as-string json-mapper)))))
        (ix/when #(and (or (= (-> % :body type) clojure.lang.PersistentArrayMap)
                           (= (-> % :body type) clojure.lang.PersistentVector))
                       (or (string/blank? (get-content-type %))

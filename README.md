@@ -124,7 +124,7 @@ Configurations related to the compilation is in the folder `resources/META-INF/n
 - [ruuter](https://github.com/askonomm/ruuter) Http Routes System 
 - [java-http-clj](https://github.com/schmee/java-http-clj) Http Client
 - [interceptor](https://github.com/exoscale/interceptor) Http Client
-- [cheshire](https://github.com/dakrone/cheshire) JSON encoding
+- [jsonista](https://github.com/metosin/jsonista) JSON encoding
 - [aero](https://github.com/juxt/aero) Configuration file and enviroment variables manager
 - [timbre](https://github.com/ptaoussanis/timbre) Logging library
 - [next-jdbc](https://github.com/seancorfield/next-jdbc) JDBC-based layer to access databases
