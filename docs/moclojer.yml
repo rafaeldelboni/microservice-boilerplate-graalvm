@@ -1,0 +1,11 @@
+- endpoint:
+    method: GET
+    path: /price
+    response:
+      status: 200
+      headers:
+        Content-Type: application/json
+      body: >
+        {
+          "bpi": { "USD": { "rate_float": 15000.00 } }
+        }

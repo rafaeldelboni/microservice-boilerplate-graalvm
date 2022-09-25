@@ -6,7 +6,7 @@ This was the jmeter settings:
 ![settings-2](docs/assertion-settings-2.jpg)
 
 The only change I did in the base code, was replace the http out for the crypto API to use a mocked http server in my machine.  
-I used [moclojer](https://github.com/moclojer/moclojer) for the http server mock, with a basic default json response body.
+I used [moclojer](https://github.com/moclojer/moclojer) for the http server mock, with a basic default json response body for the [config](docs/moclojer.yml).
 
 Acording to this [article](https://www.graalvm.org/22.0/reference-manual/native-image/JFR/) you can enable an limited, but functional 
 JDK Flight Recorder in native-image compiled binaries adding the flag `-H:+AllowVMInspection` on compile time. 
