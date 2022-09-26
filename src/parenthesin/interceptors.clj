@@ -2,7 +2,7 @@
   (:require [clojure.string :as string]
             [clojure.walk :as walk]
             [exoscale.interceptor :as ix]
-            [jsonista.core :as json]
+            [parenthesin.json :as json]
             [parenthesin.logs :as logs]
             [ring.util.codec :as codec]
             [schema-tools.coerce :as stc]
@@ -16,21 +16,16 @@
       (get (:headers ctx) "Content-Type")
       ""))
 
-(def json-mapper
-  (json/object-mapper
-   {:encode-key-fn name
-    :decode-key-fn keyword}))
-
 (def parse-body
   {:name :parse-request-body
    :enter
    (-> (fn [ctx] (assoc ctx
-                        :body (-> ctx :body (json/read-value json-mapper))))
+                        :body (-> ctx :body json/decode)))
        (ix/when #(string/includes? (get-content-type %) "application/json")))
    :leave
    (-> (fn [ctx] (-> ctx
                      (assoc :headers {"content-type" "application/json"})
-                     (assoc :body (-> ctx :body (json/write-value-as-string json-mapper)))))
+                     (assoc :body (-> ctx :body json/encode))))
        (ix/when #(and (or (= (-> % :body type) clojure.lang.PersistentArrayMap)
                           (= (-> % :body type) clojure.lang.PersistentVector))
                       (or (string/blank? (get-content-type %))

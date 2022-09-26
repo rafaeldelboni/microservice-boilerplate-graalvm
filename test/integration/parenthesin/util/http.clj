@@ -1,7 +1,6 @@
 (ns integration.parenthesin.util.http
-  (:require [jsonista.core :as json]
-            [parenthesin.components.http :as components.http]
-            [parenthesin.interceptors :as i]
+  (:require [parenthesin.components.http :as components.http]
+            [parenthesin.json :as json]
             [state-flow.api :as state-flow.api]
             [state-flow.core :as state-flow :refer [flow]]))
 
@@ -11,7 +10,7 @@
    (map (fn [[k v]]
           (when-let [body (:body v)]
             {k (assoc v
-                      :body (json/write-value-as-string body i/json-mapper))}))
+                      :body (json/encode body))}))
         responses)))
 
 (defn set-http-out-responses!

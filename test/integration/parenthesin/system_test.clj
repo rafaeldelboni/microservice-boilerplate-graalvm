@@ -4,11 +4,10 @@
             [integration.parenthesin.util.database :as util.database]
             [integration.parenthesin.util.http :as util.http]
             [integration.parenthesin.util.webserver :as util.webserver]
-            [jsonista.core :as json]
             [parenthesin.components.database :as components.database]
             [parenthesin.components.http :as components.http]
             [parenthesin.interceptors :as interceptors]
-            [parenthesin.interceptors :as i]
+            [parenthesin.json :as json]
             [schema.core :as s]
             [schema.test :as schema.test]
             [state-flow.api :refer [defflow]]
@@ -23,7 +22,7 @@
   (let [response (-> http
                      (components.http/request {:url "http://coinbase.org" :method :get})
                      :body
-                     (json/read-value i/json-mapper))
+                     json/decode)
         rate (:rate response)
         price (* rate btc)]
     (components.database/execute database [(str "insert into wallet(price) values('" price "')")])

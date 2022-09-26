@@ -1,7 +1,6 @@
 (ns integration.parenthesin.util.webserver
   (:require [clojure.string :as string]
-            [jsonista.core :as json]
-            [parenthesin.interceptors :as interceptors]
+            [parenthesin.json :as json]
             [ring.mock.request :as mock]
             [state-flow.api :as state-flow.api]
             [state-flow.core :as state-flow :refer [flow]]))
@@ -17,7 +16,7 @@
 (defn- parsed-response
   [{:keys [headers body] :as request}]
   (if (string/includes? (get headers "content-type" "") "application/json")
-    (assoc request :body (json/read-value body interceptors/json-mapper))
+    (assoc request :body (json/decode body))
     request))
 
 (defn request!

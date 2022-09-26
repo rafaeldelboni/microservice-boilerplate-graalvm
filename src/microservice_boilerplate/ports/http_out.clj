@@ -1,9 +1,8 @@
 (ns microservice-boilerplate.ports.http-out
-  (:require [jsonista.core :as json]
-            [microservice-boilerplate.adapters :as adapters.price]
+  (:require [microservice-boilerplate.adapters :as adapters.price]
             [microservice-boilerplate.schemas.types :as schemas.types]
             [parenthesin.components.http :as components.http]
-            [parenthesin.interceptors :as interceptors]
+            [parenthesin.json :as json]
             [schema.core :as s]))
 
 (set! *warn-on-reflection* true)
@@ -14,5 +13,5 @@
        :method :get}
       (as-> request (components.http/request http request))
       :body
-      (json/read-value interceptors/json-mapper)
+      json/decode
       adapters.price/wire->usd-price))
