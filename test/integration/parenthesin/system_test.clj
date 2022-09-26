@@ -1,6 +1,5 @@
 (ns integration.parenthesin.system-test
-  (:require [cheshire.core :as json]
-            [clojure.test :as clojure.test]
+  (:require [clojure.test :as clojure.test]
             [integration.parenthesin.util :as aux]
             [integration.parenthesin.util.database :as util.database]
             [integration.parenthesin.util.http :as util.http]
@@ -8,6 +7,7 @@
             [parenthesin.components.database :as components.database]
             [parenthesin.components.http :as components.http]
             [parenthesin.interceptors :as interceptors]
+            [parenthesin.json :as json]
             [schema.core :as s]
             [schema.test :as schema.test]
             [state-flow.api :refer [defflow]]
@@ -22,7 +22,7 @@
   (let [response (-> http
                      (components.http/request {:url "http://coinbase.org" :method :get})
                      :body
-                     (json/decode true))
+                     json/decode)
         rate (:rate response)
         price (* rate btc)]
     (components.database/execute database [(str "insert into wallet(price) values('" price "')")])

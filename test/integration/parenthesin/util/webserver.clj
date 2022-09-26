@@ -1,6 +1,6 @@
 (ns integration.parenthesin.util.webserver
-  (:require [cheshire.core :as json]
-            [clojure.string :as string]
+  (:require [clojure.string :as string]
+            [parenthesin.json :as json]
             [ring.mock.request :as mock]
             [state-flow.api :as state-flow.api]
             [state-flow.core :as state-flow :refer [flow]]))
@@ -16,7 +16,7 @@
 (defn- parsed-response
   [{:keys [headers body] :as request}]
   (if (string/includes? (get headers "content-type" "") "application/json")
-    (assoc request :body (json/decode body true))
+    (assoc request :body (json/decode body))
     request))
 
 (defn request!
